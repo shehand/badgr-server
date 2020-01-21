@@ -1,0 +1,83 @@
+# badgr_centos7 
+
+FROM centos:centos7
+ENV LANG C.UTF-8
+ENV DEBIAN_FRONTEND noninteractive
+
+SHELL ["/bin/bash", "-c"]
+
+RUN export LC_ALL=en_US.UTF-8 \
+    && yum --enablerepo=extras install epel-release -y \
+    && yum update -y \
+    && yum  install -y \
+        sudo \
+        vim \
+# According to README.md (System-specific requirements(CentOs 7.X)
+# git, git-core, python-virtualenv, gcc, python-pip, python-devel, libjpeg-turbo, libjpeg-turbo-devel, zlib-devel, mariadb-devel, openldap-devel, cyrus-sasl-devel, swig, libxslt-devel, automake, autoconf, libtool, libffi-devel
+     git \
+     git-core \
+     python-virtualenv \
+     gcc \
+     python-pip \
+     python-devel \
+     libjpeg-turbo \
+     libjpeg-turbo-devel \
+     zlib-devel \
+     mariadb-devel \
+     openldap-devel \
+     cyrus-sasl-devel \
+     swig \
+     libxslt-devel \
+     automake \
+     autoconf \
+     libtool \
+     libffi \
+     libffi-devel \
+# According to README.md(Prerequisites)
+    cairo-devel \
+    xmlsec1 \
+    mysql-devel \
+    mysql \
+# for anyenv and pyenv 
+    make \
+    openssl-devel \
+    bzip2-devel \
+    readline-devel libsqlite3x-devel wget curl llvm ncurses-devel \
+    xz xz-devel  tk-devel 
+RUN  git clone https://github.com/anyenv/anyenv ~/.anyenv \
+     && echo 'export PATH="$HOME/.anyenv/bin:$PATH"' >> ~/.bash_profile \
+     && echo 'eval "$(anyenv init -)"' >> ~/.bash_profile \
+     && source ~/.bash_profile \
+     && yes y|anyenv install --init \
+     && anyenv install pyenv \
+     && echo $PATH \
+     && source ~/.bash_profile \
+     && pyenv install 2.7.14
+
+RUN mkdir /badgr && cd badgr && virtualenv ./env \
+     && source env/bin/activate \
+     && pip install --upgrade pip \
+     && git clone https://github.com/concentricsky/badgr-server.git code \
+     && cd code \
+     && pip install -r requirements.txt
+
+RUN  source ~/.bash_profile \
+     && anyenv install nodenv \
+     && echo 'eval "$(nodenv init -)"' >> ~/.bash_profile \
+     && source ~/.bash_profile \
+     && echo yarn >> $NODENV_ROOT/default-packages \     
+     && nodenv install 8.9.3  \
+     && nodenv global 8.9.3  \
+     && source ~/.bash_profile \
+     && node -v \
+     && npm -v \
+     && cd /badgr \
+     && git clone https://github.com/concentricsky/badgr-ui.git /badgr/badgr-ui \
+     && cd /badgr/badgr-ui \
+     && source ~/.bash_profile \
+     && node -v \
+     && echo 'wait a minuite...' \
+     && npm i npm@latest -g \
+     && npm install
+
+
