@@ -78,7 +78,7 @@ ROOT_URLCONF = 'mainsite.urls'
 
 # Hosts/domain names that are valid for this site.
 # "*" matches anything, ".example.com" matches example.com and all subdomains
-ALLOWED_HOSTS = ['35.192.136.157','localhost']
+ALLOWED_HOSTS = ['*']
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
