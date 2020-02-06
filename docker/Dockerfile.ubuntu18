@@ -67,7 +67,7 @@ RUN  git clone https://github.com/anyenv/anyenv ~/.anyenv \
 RUN mkdir /badgr && cd badgr && virtualenv ./env \
      && source env/bin/activate \
      && pip install --upgrade pip \
-     && git clone https://github.com/concentricsky/badgr-server.git code \
+     && git clone https://github.com/shehand/badgr-server.git code \
      && cd code \
      && pip install -r requirements.txt
 
