@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  # badgr
+  badgr:
+## if you want to build image uncomment 'build:' section and comment 'image:' section.
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.centos7
+##      dockerfile: Dockerfile.ubuntu18
+## if you want to change image choose below.
+## CentOs7 or Ubuntu18 
+#    image: badgr/badgr_centos7
+    image: badgr/badgr_ubuntu18
+    depends_on:
+    - db
+    volumes:
+    - ./init:/badgr/init
+    ports:
+    - 4200:4200
+    - 8000:8000
+    entrypoint: "/bin/bash -c '/badgr/init/init.sh'"
+    
+  # MySQL
+  db:
+    image: mysql:5.7
+    container_name: mysql_host
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: badgr
+      MYSQL_USER: badgr
+      MYSQL_PASSWORD: badgr 
+      #      TZ: 'Asia/Tokyo'
+      TZ: 'UTC'
+    # command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    volumes:
+    - ./db/data:/var/lib/mysql
+    - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
+    - ./db/entry_point:/docker-entrypoint-initdb.d
+    ports:
+    - 3306:3306
+
+  # phpMyAdmin
+  # if you want to use phpMyAdmin uncomment below.
+#  phpmyadmin:
+#    container_name: phpmyadmin
+#    image: phpmyadmin/phpmyadmin
+#    environment:
+#    - PMA_ARBITRARY=1
+#    - PMA_HOSTS=mysql_host
+#    - PMA_USER=root
+#    - PMA_PASSWORD=root
+#    ports:
+#    - 8080:8080
+    
