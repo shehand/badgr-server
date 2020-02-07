@@ -128,7 +128,7 @@ CELERY_ALWAYS_EAGER = True
 #
 ###
 
-HTTP_ORIGIN = 'http://localhost:8000'
+HTTP_ORIGIN = 'http://35.192.136.157:8000'
 
 # Optionally restrict issuer creation to accounts that have the 'issuer.add_issuer' permission
 BADGR_APPROVED_ISSUERS_ONLY = False
