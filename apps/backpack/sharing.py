@@ -1,6 +1,7 @@
 import urllib
 
 from django.conf import settings
+from django.http import Http404
 
 from issuer.models import BadgeInstance
 
@@ -18,8 +19,9 @@ class TwitterShareProvider(ShareProvider):
 
     def share_url(self, obj, **kwargs):
         if isinstance(obj, BadgeInstance):
+            issuer_name = obj.cached_issuer.name.encode('utf-8')
             text = "I earned a badge from {issuer}! {url}".format(
-                issuer=obj.cached_issuer.name,
+                issuer=issuer_name,
                 url=obj.get_share_url(**kwargs)
             )
         else:
@@ -44,10 +46,11 @@ class PinterestShareProvider(ShareProvider):
     provider_name = 'Pinterest'
 
     def share_url(self, badge_instance, **kwargs):
+        summary = badge_instance.cached_badgeclass.name.encode('utf8')
         return "http://www.pinterest.com/pin/create/button/?url={url}&media={image}&description={summary}".format(
             url=urllib.quote(badge_instance.get_share_url(**kwargs)),
             image=badge_instance.image_url(),
-            summary=badge_instance.cached_badgeclass.name
+            summary=summary
         )
 
 
@@ -69,10 +72,11 @@ class LinkedinShareProvider(ShareProvider):
 
     def feed_share_url(self, badge_instance, title=None, summary=None, **kwargs):
         if title is None:
-            title = "I earned a badge from Badgr!"
+            issuer_name = badge_instance.issuer.name.encode('utf8')
+            title = "I earned a badge from {issuer}!".format(issuer=issuer_name)
+
         if summary is None:
-            summary = badge_instance.cached_badgeclass.name
-            summary = summary.encode('utf8')  # Unicode is forbidden in URLs, urllib does not handle Unicode
+            summary = badge_instance.cached_badgeclass.name.encode('utf8')
         return "https://www.linkedin.com/shareArticle?mini=true&url={url}&title={title}&summary={summary}".format(
             url=urllib.quote(badge_instance.get_share_url(**kwargs)),
             title=urllib.quote(title),
@@ -112,7 +116,7 @@ class SharingManager(object):
     def share_url(cls, provider, badge_instance, include_identifier=False, **kwargs):
         manager_cls = SharingManager.ManagerProviders.get(provider.lower(), None)
         if manager_cls is None:
-            raise NotImplementedError(u"Provider not supported: {}".format(provider))
+            raise Http404(u"Provider not supported: {}".format(provider))
         manager = manager_cls(provider)
         url = manager.share_url(badge_instance, include_identifier=include_identifier)
         return url
