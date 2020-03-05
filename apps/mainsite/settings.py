@@ -122,7 +122,7 @@ TEMPLATES = [
 #
 ##
 
-HTTP_ORIGIN = "http://35.192.136.157:8000"
+HTTP_ORIGIN = "http://34.67.163.193/:8000"
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
