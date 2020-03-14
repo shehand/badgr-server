@@ -140,9 +140,7 @@ class DetailSerializerV2(BaseSerializerV2):
     def update(self, instance, validated_data):
         for field_name, value in validated_data.items():
             setattr(instance, field_name, value)
-
-        save_kwargs = self.context.get('save_kwargs', dict())
-        instance.save(**save_kwargs)
+        instance.save()
         return instance
 
 

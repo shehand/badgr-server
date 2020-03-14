@@ -184,9 +184,6 @@ class IssuerSerializerV2(DetailSerializerV2, OriginalJsonSerializerMixin):
     def update(self, instance, validated_data):
         validated_data.pop('cached_creator', None)
 
-        if 'image' in validated_data:
-            self.context['save_kwargs'] = dict(force_resize=True)
-
         return super(IssuerSerializerV2, self).update(instance, validated_data)
 
 
@@ -329,9 +326,6 @@ class BadgeClassSerializerV2(DetailSerializerV2, OriginalJsonSerializerMixin):
     def update(self, instance, validated_data):
         if 'cached_issuer' in validated_data:
             validated_data.pop('cached_issuer')  # issuer is not updatable
-
-        if 'image' in validated_data:
-            self.context['save_kwargs'] = dict(force_resize=True)
 
         if not IsEditor().has_object_permission(self.context.get('request'), None, instance.issuer):
             raise serializers.ValidationError(
@@ -604,14 +598,6 @@ class BadgeInstanceSerializerV2(DetailSerializerV2, OriginalJsonSerializerMixin)
     def validate(self, data):
         request = self.context.get('request', None)
         expected_issuer = self.context.get('kwargs', {}).get('issuer')
-        badgeclass_identifiers = ['badgeclass_jsonld_id', 'badgeclassName', 'cached_badgeclass', 'badgeclass']
-        badge_instance_properties = list(data.keys())
-
-        if 'badgeclass' in self.context:
-            badge_instance_properties.append('badgeclass')
-
-        if sum([el in badgeclass_identifiers for el in badge_instance_properties]) > 1:
-            raise serializers.ValidationError('Multiple badge class identifiers. Exactly one of the following badge blass identifiers are allowed: badgeclass, badgeclassName, or badgeclassOpenBadgeId')
 
         if request and request.method != 'PUT':
             # recipient and badgeclass are only required on create, ignored on update

@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 import badgrlog
-import datetime
 
 from django.utils import timezone
 from rest_framework import permissions
@@ -356,7 +355,6 @@ class ShareBackpackAssertion(BaseEntityDetailView):
             return Response({'error': "invalid share provider"}, status=status.HTTP_400_BAD_REQUEST)
 
         share.save()
-        logger.event(badgrlog.BadgeSharedEvent(badge, provider, datetime.datetime.now(), source))
 
         if redirect:
             headers = {'Location': share_url}
