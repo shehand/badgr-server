@@ -5,13 +5,9 @@ services:
   badgr:
 ## if you want to build image uncomment 'build:' section and comment 'image:' section.
   build:
-     context: .
+    context: .
 #      dockerfile: Dockerfile.centos7
-     dockerfile: Dockerfile.ubuntu18
-## if you want to change image choose below.
-## CentOs7 or Ubuntu18 
-#    image: badgr/badgr_centos7
- #   image: badgr/badgr_ubuntu18
+    dockerfile: Dockerfile.ubuntu18
     depends_on:
     - db
     volumes:
@@ -53,4 +49,3 @@ services:
 #    - PMA_PASSWORD=root
 #    ports:
 #    - 8080:8080
-    
