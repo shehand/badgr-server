@@ -6,7 +6,7 @@ services:
 ## if you want to build image uncomment 'build:' section and comment 'image:' section.
     build:
       context: .
-      dockerfile: Dockerfile.centos7
+      dockerfile: Dockerfile
 #      dockerfile: Dockerfile.ubuntu18
 ## if you want to change image choose below.
 ## CentOs7 or Ubuntu18 
