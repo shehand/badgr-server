@@ -1,2 +1,3 @@
-User-agent: *
-Disallow: /staff/
+# www.robotstxt.org/
+# https://developers.google.com/webmasters/control-crawl-index/
+

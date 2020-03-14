@@ -13,12 +13,9 @@ from django.core.urlresolvers import resolve, Resolver404, reverse
 
 from badgeuser.authcode import authcode_for_accesstoken
 from badgeuser.models import CachedEmailAddress
-import badgrlog
 from badgrsocialauth.utils import set_session_badgr_app
 from mainsite.models import BadgrApp, EmailBlacklist, AccessTokenProxy
 from mainsite.utils import OriginSetting, set_url_query_params
-
-logger = badgrlog.BadgrLogger()
 
 
 class BadgrAccountAdapter(DefaultAccountAdapter):
@@ -46,19 +43,13 @@ class BadgrAccountAdapter(DefaultAccountAdapter):
         self.EMAIL_FROM_STRING = self.set_email_string(context)
 
         msg = self.render_mail(template_prefix, email, context)
-        logger.event(badgrlog.EmailRendered(msg))
         msg.send()
 
     def set_email_string(self, context):
-        from_elements = [context.get('site_name', 'Badgr')]
+        from_elements = [context.get('site_name', '')]
 
-        # DEFAULT_FROM_EMAIL must not already have < > in it.
-        default_from = getattr(settings, 'DEFAULT_FROM_EMAIL', '')
-        if not default_from:
-            raise NotImplemented("DEFAULT_FROM_EMAIL setting must be defined.")
-        elif '<' in default_from:
-            return default_from
-        else:
+        default_from = getattr(settings, 'DEFAULT_FROM_EMAIL', None)
+        if default_from:
             from_elements.append("<{}>".format(default_from))
 
         return " ".join(from_elements)
