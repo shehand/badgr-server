@@ -123,7 +123,7 @@ if getattr(settings, 'DEBUG_MEDIA', True):
 if getattr(settings, 'DEBUG_STATIC', True):
     from django.contrib.staticfiles.views import serve as staticfiles_serve
     static_url = getattr(settings, 'STATIC_URL', '/static/')
-    static_url = static_url.replace(getattr(settings, 'HTTP_ORIGIN', 'http://localhost:8000'), '')
+    static_url = static_url.replace(getattr(settings, 'HTTP_ORIGIN', 'http://34.67.163.193:8000'), '')
     static_url = static_url.lstrip('/')
     urlpatterns = [
         url(r'^%s(?P<path>.*)' % (static_url,), staticfiles_serve, kwargs={
