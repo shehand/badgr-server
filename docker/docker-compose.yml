@@ -6,8 +6,7 @@ services:
 ## if you want to build image uncomment 'build:' section and comment 'image:' section.
   build:
     context: .
-#      dockerfile: Dockerfile.centos7
-    dockerfile: Dockerfile.ubuntu18
+    dockerfile: Dockerfile
     depends_on:
     - db
     volumes:
