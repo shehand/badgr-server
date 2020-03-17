@@ -1263,7 +1263,7 @@ CREATE TABLE `mainsite_badgrapp` (
 
 LOCK TABLES `mainsite_badgrapp` WRITE;
 /*!40000 ALTER TABLE `mainsite_badgrapp` DISABLE KEYS */;
-INSERT INTO `mainsite_badgrapp` VALUES (1,1,'2020-01-21 03:23:23.410862','2020-01-21 03:23:23.410910','http://localhost:4000','http://localhost:4000/auth/login/','http://localhost:4000/change-password/',NULL,NULL,'BadgrApp','http://localhost:4000/signup/','http://localhost:4000/auth/login','http://localhost:4000/signup/success/','http://localhost:4000/profile/','http://localhost:4000/public/','http://localhost:4000',0,NULL,'http://localhost:4000/signup/',1);
+INSERT INTO `mainsite_badgrapp` VALUES (1,1,'2020-01-21 03:23:23.410862','2020-01-21 03:23:23.410910','http://34.67.163.193:4200','http://34.67.163.193:4200/auth/login/','http://34.67.163.193:4200/change-password/',NULL,NULL,'BadgrApp','http://34.67.163.193:4200/signup/','http://34.67.163.193:4200/auth/login','http://34.67.163.193:4200/signup/success/','http://34.67.163.193:4200/profile/','http://34.67.163.193:4200/public/','http://34.67.163.193:4200',0,NULL,'http://34.67.163.193:4200/signup/',1);
 /*!40000 ALTER TABLE `mainsite_badgrapp` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1362,7 +1362,7 @@ CREATE TABLE `oauth2_provider_application` (
 
 LOCK TABLES `oauth2_provider_application` WRITE;
 /*!40000 ALTER TABLE `oauth2_provider_application` DISABLE KEYS */;
-INSERT INTO `oauth2_provider_application` VALUES (1,'public','http://localhost:4000','public','password','qHdtBvlCL1GAELkF8N7cUci9sJk84IDkOEgzJWoeZi99QPWYLD3asxy831DOTM8Y8Kt5lYlLWysLfUr3e4JgqJmTGc434o1533bH4jKZU4SsTjYHrwzHh2TH1pNnc9ld','',NULL,0,'2020-01-21 03:25:24.088505','2020-01-21 03:25:24.088556');
+INSERT INTO `oauth2_provider_application` VALUES (1,'public','http://34.67.163.193:4200','public','password','qHdtBvlCL1GAELkF8N7cUci9sJk84IDkOEgzJWoeZi99QPWYLD3asxy831DOTM8Y8Kt5lYlLWysLfUr3e4JgqJmTGc434o1533bH4jKZU4SsTjYHrwzHh2TH1pNnc9ld','',NULL,0,'2020-01-21 03:25:24.088505','2020-01-21 03:25:24.088556');
 /*!40000 ALTER TABLE `oauth2_provider_application` ENABLE KEYS */;
 UNLOCK TABLES;
 
