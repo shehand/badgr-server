@@ -82,7 +82,7 @@ RUN  source ~/.bash_profile \
      && node -v \
      && npm -v \
      && cd /badgr \
-     && git clone https://github.com/concentricsky/badgr-ui.git /badgr/badgr-ui \
+     && git clone https://github.com/Wathsara/badgr-ui.git /badgr/badgr-ui \
      && cd /badgr/badgr-ui \
      && source ~/.bash_profile \
      && node -v \
